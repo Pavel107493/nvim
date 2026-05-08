@@ -1,41 +1,36 @@
 -------------------------------------
--- Bootstrap lazy.nvim
--------------------------------------
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git", "clone", "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", lazypath,
-  })
-end
-vim.opt.rtp:prepend(lazypath)
-
--------------------------------------
 -- Базовые настройки nvim
 -------------------------------------
-vim.opt.clipboard = 'unnamedplus'
-vim.opt.termguicolors = true
-vim.cmd('syntax on')
-vim.opt.encoding = 'utf-8'
-vim.opt.fileencodings = {'utf-8'}
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.scrolloff = 3
-vim.opt.background = 'dark'
-vim.opt.expandtab = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.softtabstop = 4
-vim.opt.wrap = false
-vim.opt.ruler = true
-vim.opt.mouse = 'a'
-vim.opt.splitbelow = true
-vim.opt.splitright = true
+
+-- vim.opt.clipboard = 'unnamedplus'  -- Синхронизация с системным буфером обмена (закомментировано)
+
+vim.opt.termguicolors = true       -- Включение 24-битных цветов для тем
+vim.cmd('syntax on')               -- Включение подсветки синтаксиса
+vim.opt.encoding = 'utf-8'         -- Кодировка редактора UTF-8
+vim.opt.fileencodings = {'utf-8'}  -- Кодировки файлов для чтения (только UTF-8)
+vim.opt.number = true              -- Показ номеров строк
+vim.opt.relativenumber = true      -- Относительные номера строк (удобно для движений по vim-командам)
+vim.opt.scrolloff = 3              -- Отступ от края экрана при скролле (3 строки)
+vim.opt.background = 'dark'        -- Темная тема (влияет на цвета подсветки)
+-- Отступы и табуляция
+vim.opt.expandtab = true           -- Преобразование табов в пробелы
+vim.opt.tabstop = 4                -- Ширина табуляционного символа (4 пробела)
+vim.opt.shiftwidth = 4             -- Ширина отступов (4 пробела)
+vim.opt.softtabstop = 4            -- Чувствительная ширина табуляции при вводе
+vim.opt.wrap = false               -- Отключение переноса длинных строк
+vim.opt.ruler = true               -- Показ курсора (строка, столбец) в статусной строке
+vim.opt.mouse = 'a'                -- Включение мыши во всех режимах
+-- Разделение окон
+vim.opt.splitbelow = true          -- Новые окна снизу (horizontal split)
+vim.opt.splitright = true          -- Новые окна справа (vertical split)
+vim.opt.cursorline = true          -- Подсветка текущей строки
 
 -- Поддержка undercurl для LSP
 vim.cmd("let &t_Cs='\\e[6m'")  -- Подчёркивание
 vim.cmd("let &t_Ce='\\e[59m'") -- Конец подчёркивания
+
+vim.lsp.config('ts_ls', {})
+vim.lsp.enable('ts_ls')
 
 -- LSP диагностика (undercurl)
 vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', { undercurl = true, sp = 'Red' })
@@ -49,47 +44,10 @@ vim.diagnostic.config({
   signs = true,
 })
 
--------------------------------------
--- Плагины (Lazy.nvim)
--------------------------------------
-require('lazy').setup({
-  -- Файловый менеджер
-  {'nvim-neo-tree/neo-tree.nvim', branch = 'v3.x'},
-  {'nvim-lua/plenary.nvim'},
-  {'nvim-tree/nvim-web-devicons'},
-  {'MunifTanjim/nui.nvim'},
-  {'antosha417/nvim-lsp-file-operations'},
-  {'s1n7ax/nvim-window-picker'},
-
-  -- Синтаксис и редактирование
-  {'ap/vim-css-color'},
-  {'nvim-treesitter/nvim-treesitter'},
-  {'editorconfig/editorconfig-vim'},
-  {'tpope/vim-commentary'},
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
-
-  -- UI и интерфейс
-  {'folke/which-key.nvim'},
-  {'nvim-lualine/lualine.nvim'},
-  {'folke/noice.nvim'},
-  {'akinsho/bufferline.nvim'},
-  {'josstei/whisk.nvim'},
-  {'ecthelionvi/NeoView.nvim'},
-
-
-  {'neovim/nvim-lspconfig'},
-  {'hrsh7th/cmp-nvim-lsp'},
-  {'hrsh7th/cmp-buffer'},
-  {'hrsh7th/cmp-path'},
-  {'hrsh7th/cmp-cmdline'},
-  {'hrsh7th/nvim-cmp'},
-  {'williamboman/mason.nvim'},
-
-  -- Темы
-  {'bluz71/vim-moonfly-colors'}
-})
-
-vim.cmd("colorscheme moonfly")
+---------------------
+-- Lazy плагины 
+---------------------
+require('core.lazy_plugins')
 
 -------------------------------------
 -- Подключаем lua конфиги
@@ -97,38 +55,19 @@ vim.cmd("colorscheme moonfly")
 require('plugins.lualine')
 require('plugins.treesitter')
 require('plugins.neotree')
-require('plugins.bufferline')
 require('plugins.noise')
 require('plugins.which-key')
 require('plugins.lsp')
 require('plugins.cmp')
 require('plugins.mason')
 require('plugins.ibl')
-
+ 
 -------------------------------------
 -- Горячие клавиши
 -------------------------------------
-vim.keymap.set('n', '<C-h>', '<C-w>h', { silent = true })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { silent = true })
-vim.keymap.set('n', '<C-j>', '<C-w>j>', { silent = true })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { silent = true })
-vim.keymap.set({'n', 'i'}, '<C-n>', ':Neotree left<CR>', { noremap = true, silent = true })
-vim.keymap.set({'n', 'i'}, '<C-f>', ':Neotree float<CR>', { noremap = true, silent = true })
+require('core.hotkeys')
 
--- Отключение стрелок
-vim.keymap.set('n', '<Up>', '<NOP>')
-vim.keymap.set('n', '<Down>', '<NOP>')
-vim.keymap.set('n', '<Left>', '<NOP>')
-vim.keymap.set('n', '<Right>', '<NOP>')
-
--------------------------------------
--- Neotree автозапуск
--------------------------------------
-vim.api.nvim_create_autocmd("VimEnter", {
-  callback = function()
-    if vim.api.nvim_win_get_width(0) >= 150 then
-      vim.cmd("Neotree")
-      vim.cmd("wincmd p")
-    end
-  end,
-})
+-----------
+-- Theme
+-----------
+vim.cmd("colorscheme moonfly")

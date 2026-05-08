@@ -13,22 +13,22 @@ require("neo-tree").setup({
     },
     window = {
         mappings = {
-            -- ["<CR>"] = "open",
             ["o"] = "open",
-            -- ["s"] = "split_with_window_picker",
-            -- ["v"] = "vsplit_with_window_picker",
-            -- ["t"] = "open_tabnew",
-            -- ["a"] = "add",
-            -- ["d"] = "delete",
-            -- ["r"] = "rename",
-            -- ["y"] = "copy_to_clipboard",
-            -- ["x"] = "cut_to_clipboard",
-            -- ["p"] = "paste_from_clipboard",
-            -- ["<"] = "prev_source",
-            -- [">"] = "next_source",
+            ["s"] = "split_with_window_picker",
+            ["v"] = "vsplit_with_window_picker",
         },
         position = "left",
         width = 30,
 
     },
 })
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.api.nvim_win_get_width(0) >= 150 then
+      vim.cmd("Neotree")
+      vim.cmd("wincmd p")
+    end
+  end,
+})
+

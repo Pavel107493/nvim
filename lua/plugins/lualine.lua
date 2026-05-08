@@ -1,8 +1,9 @@
-vim.opt.termguicolors = true
 
 require("lualine").setup({
   options = {
     theme = "auto",
+    -- component_separators = '',
+    -- section_separators = { left = '', right = '' },
     section_separators = "",
     component_separators = "|",
     globalstatus = vim.o.laststatus == 3,
@@ -29,7 +30,7 @@ require("lualine").setup({
     },
     lualine_z = {
       function()
-        return " " .. os.date("%I:%M %p")
+        return " " .. os.date("%I:%M:%S %p")
       end,
     },
   },

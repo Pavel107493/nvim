@@ -1,6 +1,5 @@
 {
   "NeoView.nvim": { "branch": "main", "commit": "c005e12da72bd9804e13ea0a8ba9ce3c20c105fe" },
-  "bufferline.nvim": { "branch": "main", "commit": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3" },
   "cmp-buffer": { "branch": "main", "commit": "b74fab3656eea9de20a9b8116afa3cfc4ec09657" },
   "cmp-cmdline": { "branch": "main", "commit": "d126061b624e0af6c3a556428712dd4d4194ec6d" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "cbc7b02bb99fae35cb42f514762b89b5126651ef" },
@@ -22,7 +21,8 @@
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "vim-commentary": { "branch": "master", "commit": "64a654ef4a20db1727938338310209b6a63f60c9" },
   "vim-css-color": { "branch": "master", "commit": "14fd934cdd9ca1ac0e53511094e612eb9bace373" },
+  "vim-lastplace": { "branch": "master", "commit": "e58cb0df716d3c88605ae49db5c4741db8b48aa9" },
   "vim-moonfly-colors": { "branch": "master", "commit": "4ed07bc0c6083cdd547c63f5c245e02c068b0c45" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
-  "whisk.nvim": { "branch": "main", "commit": "fa2f6ba9c7226552c034a1e75ee6fa757e427737" }
+  "whisk.nvim": { "branch": "main", "commit": "852b6892f4fe0a8f911843e0b90bfc947d3b95df" }
 }
