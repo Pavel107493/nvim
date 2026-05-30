@@ -1,9 +1,10 @@
-
 require("lualine").setup({
   options = {
     theme = "auto",
     -- component_separators = '',
     -- section_separators = { left = '', right = '' },
+    -- section_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
     section_separators = "",
     component_separators = "|",
     globalstatus = vim.o.laststatus == 3,
@@ -21,7 +22,7 @@ require("lualine").setup({
     },
     lualine_x = {
       "encoding",
-      "fileformat",
+      -- "fileformat",
       "filetype",
     },
     lualine_y = {

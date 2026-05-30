@@ -1,6 +1,6 @@
 require("neo-tree").setup({
     close_if_last_window = true,
-    --    popup_border_style = "rounded",
+    popup_border_style = "rounded",
     enable_git_status = true,
     enable_diagnostics = true,
 
@@ -25,10 +25,9 @@ require("neo-tree").setup({
 
 vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
-    if vim.api.nvim_win_get_width(0) >= 150 then
+    if vim.api.nvim_win_get_width(0) >= 150 and vim.fn.argc() > 0 then
       vim.cmd("Neotree")
       vim.cmd("wincmd p")
     end
   end,
 })
-

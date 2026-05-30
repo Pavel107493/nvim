@@ -1,4 +1,4 @@
 require("which-key").setup({
   preset = "helix",
-  delay = 700,
+  delay = 500,
 })

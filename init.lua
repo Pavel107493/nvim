@@ -4,6 +4,7 @@
 
 -- vim.opt.clipboard = 'unnamedplus'  -- Синхронизация с системным буфером обмена (закомментировано)
 
+vim.opt.cursorline = true          -- Подсветка текущей строки
 vim.opt.termguicolors = true       -- Включение 24-битных цветов для тем
 vim.cmd('syntax on')               -- Включение подсветки синтаксиса
 vim.opt.encoding = 'utf-8'         -- Кодировка редактора UTF-8
@@ -23,26 +24,8 @@ vim.opt.mouse = 'a'                -- Включение мыши во всех 
 -- Разделение окон
 vim.opt.splitbelow = true          -- Новые окна снизу (horizontal split)
 vim.opt.splitright = true          -- Новые окна справа (vertical split)
-vim.opt.cursorline = true          -- Подсветка текущей строки
 
--- Поддержка undercurl для LSP
-vim.cmd("let &t_Cs='\\e[6m'")  -- Подчёркивание
-vim.cmd("let &t_Ce='\\e[59m'") -- Конец подчёркивания
 
-vim.lsp.config('ts_ls', {})
-vim.lsp.enable('ts_ls')
-
--- LSP диагностика (undercurl)
-vim.api.nvim_set_hl(0, 'DiagnosticUnderlineError', { undercurl = true, sp = 'Red' })
-vim.api.nvim_set_hl(0, 'DiagnosticUnderlineWarn', { undercurl = true, sp = 'Yellow' })
-vim.api.nvim_set_hl(0, 'DiagnosticUnderlineInfo', { undercurl = true, sp = 'Blue' })
-vim.api.nvim_set_hl(0, 'DiagnosticUnderlineHint', { undercurl = true, sp = 'Green' })
-
-vim.diagnostic.config({
-  underline = true,
-  virtual_text = false,
-  signs = true,
-})
 
 ---------------------
 -- Lazy плагины 
@@ -50,24 +33,7 @@ vim.diagnostic.config({
 require('core.lazy_plugins')
 
 -------------------------------------
--- Подключаем lua конфиги
--------------------------------------
-require('plugins.lualine')
-require('plugins.treesitter')
-require('plugins.neotree')
-require('plugins.noise')
-require('plugins.which-key')
-require('plugins.lsp')
-require('plugins.cmp')
-require('plugins.mason')
-require('plugins.ibl')
- 
--------------------------------------
 -- Горячие клавиши
 -------------------------------------
 require('core.hotkeys')
 
------------
--- Theme
------------
-vim.cmd("colorscheme moonfly")
